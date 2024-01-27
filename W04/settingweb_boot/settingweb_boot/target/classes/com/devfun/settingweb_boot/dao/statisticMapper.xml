@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.devfun.settingweb_boot.dao.StatisticMapper">
+ 
+    <select id="selectYearLogin" parameterType="string" resultType="hashMap">
+        select count(*) as totCnt
+        from stat.requestinfo ri
+        where left(ri.createDate, 4) = #{year};
+    </select>
+    
+    <!-- 총 접속자 수 조회 -->
+    <select id="selectTotalVisitors" resultType="hashMap">
+        SELECT COUNT(*) AS totalVisitors
+        FROM stat.requestInfo
+        WHERE requestCode = 'L';
+    </select>
+    
+    <!-- 부서별 접속자 수 조회 -->
+    <select id="selectDepartmentVisitors" parameterType="string" resultType="hashMap">
+        SELECT user.HR_ORGAN as department, COUNT(*) as visitors
+        FROM stat.requestInfo
+        JOIN stat.user ON requestInfo.userID = user.userID
+        WHERE requestInfo.requestCode = 'L' and user.HR_ORGAN = #{department}
+        GROUP BY user.HR_ORGAN;
+    </select>
+    
+     <!-- 월별 접속자 수 조회 -->
+    <select id="monthlyVisitors" parameterType="String" resultType="hashMap">
+        SELECT DATE_FORMAT(STR_TO_DATE(createDate, '%Y%m%d'), '%Y-%m') as month, COUNT(*) as visitors
+        FROM stat.requestInfo
+        WHERE requestCode = 'L' AND DATE_FORMAT(STR_TO_DATE(createDate, '%Y%m%d'), '%Y%m') = #{month}
+    </select>
+    
+    <!-- 일별 접속자 수 조회 -->
+    <select id="dailyLoginRequests" parameterType="String" resultType="hashMap">
+        SELECT STR_TO_DATE(createDate, '%Y%m%d') AS date, COUNT(*) AS visitors
+        FROM stat.requestInfo
+        WHERE requestCode = 'L' AND STR_TO_DATE(createDate, '%Y%m%d') = STR_TO_DATE(#{date}, '%Y%m%d')
+        GROUP BY date
+    </select>
+    
+    <!-- 평균 하루 로그인 수 조회 -->
+    <select id="averageDailyLogins" parameterType="Map" resultType="hashMap">
+        SELECT COUNT(*) / (DATEDIFF(MAX(STR_TO_DATE(createDate, '%Y%m%d%H%i')), MIN(STR_TO_DATE(createDate, '%Y%m%d%H%i'))) + 1)  AS averageLogins
+        FROM stat.requestInfo
+        WHERE requestCode = 'L'
+    </select>
+    
+    <!-- 부서별 월별 로그인 수 조회 -->
+    <select id="departmentMonthlyLogins" parameterType="Map" resultType="hashMap">
+        SELECT user.HR_ORGAN AS department, DATE_FORMAT(STR_TO_DATE(createDate, '%Y%m%d'), '%Y-%m') AS month, COUNT(*) AS logins
+        FROM stat.requestInfo
+        JOIN stat.user ON requestInfo.userID = user.userID
+        WHERE requestInfo.requestCode = 'L'
+        AND user.HR_ORGAN = #{department} AND DATE_FORMAT(STR_TO_DATE(createDate, '%Y%m%d'), '%Y%m') = #{month}
+        GROUP BY department, month
+    </select>
+    
+    <!-- 부서별 월별 로그인 수 조회 -->
+    <select id="nonHolidayLogins" parameterType="Map" resultType="hashMap">
+        SELECT COUNT(*) AS nonHolidayLogins
+		FROM stat.requestInfo
+		WHERE WEEKDAY(STR_TO_DATE(SUBSTRING(createDate, 1, 8), '%Y%m%d')) &lt; 5
+		AND DATE_FORMAT(STR_TO_DATE(SUBSTRING(createDate, 1, 8), '%Y%m%d'), '%Y%m%d') NOT IN (
+		    SELECT holiday_dt
+		    FROM tb_national_holidays
+		    WHERE is_holiday = 'Y'
+		);
+    </select>
+    
+</mapper>

@@ -1,8 +1,0 @@
-{
-  "returnCode" : "200",
-  "data" : {
-    "date" : "2023-04-19",
-    "visitors" : 2
-  },
-  "returnMessage" : "Success"
-}

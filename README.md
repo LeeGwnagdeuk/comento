@@ -121,7 +121,7 @@
 #### DB 생성 쿼리 - https://github.com/LeeGwnagdeuk/comento/tree/main/W04/DB/Creater
 #### 공휴일 DB 업데이터 - https://github.com/LeeGwnagdeuk/comento/tree/main/W04/DB/Updater
 
-#### 프로젝트 -
+#### 프로젝트 - https://github.com/LeeGwnagdeuk/comento/tree/main/W04/settingweb_boot/settingweb_boot
 
   
 

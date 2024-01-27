@@ -111,6 +111,18 @@
                    	.
                    	.
               +	클라이언트 개발팀에 전달 (진행 중)
+          
+
+#### API 가이드 문서 - https://github.com/LeeGwnagdeuk/comento/blob/main/W04/%5BW04%5DAPI_%EA%B0%80%EC%9D%B4%EB%93%9C%EB%AC%B8%EC%84%9C.docx
+
+#### API 실 응답 예시 - https://github.com/LeeGwnagdeuk/comento/tree/main/W04/%EC%9D%91%EB%8B%B5%20%EC%98%88%EC%8B%9C%20-%20json 
+
+#### 실 DB  - https://github.com/LeeGwnagdeuk/comento/tree/main/W04/DB
+#### DB 생성 쿼리 - https://github.com/LeeGwnagdeuk/comento/tree/main/W04/DB/Creater
+#### 공휴일 DB 업데이터 - https://github.com/LeeGwnagdeuk/comento/tree/main/W04/DB/Updater
+
+#### 프로젝트 -
+
   
 
 

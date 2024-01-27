@@ -85,7 +85,7 @@
 
      
 
-5.	통계 API(SW활용현황)을 위한 DB, TABLE 생성
+5.	통계 API(SW활용현황)을 위한 DB, TABLE 생성       https://github.com/LeeGwnagdeuk/comento/blob/main/W03/requestinfo.xlsx
     + 총 직원 32명 DB 생성 (완료)
      
       + 부서 등록 (완료)
